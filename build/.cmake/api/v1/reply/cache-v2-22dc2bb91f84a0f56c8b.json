@@ -2991,7 +2991,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "general;/home/yixin/teaser_ba/src/teaser_ba/build/devel/lib/libpmc.so;general;/home/yixin/teaser_ba/src/teaser_ba/build/devel/lib/libteaser_registration.so;general;/home/yixin/teaser_ba/src/teaser_ba/build/devel/lib/libteaser_features.so;"
+			"value" : "general;/home/yixin/teaser_ba/src/teaser_ba/thirdparty/teaser/libpmc.so;general;/home/yixin/teaser_ba/src/teaser_ba/thirdparty/teaser/libteaser_registration.so;general;/home/yixin/teaser_ba/src/teaser_ba/thirdparty/teaser/libteaser_features.so;"
 		},
 		{
 			"name" : "tf2_DIR",

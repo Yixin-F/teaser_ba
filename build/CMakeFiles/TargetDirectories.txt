@@ -67,7 +67,6 @@
 /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/geometry_msgs_generate_messages_py.dir
 /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/tf2_msgs_generate_messages_eus.dir
 /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/sensor_msgs_generate_messages_py.dir
-/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/teaser.dir
 /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/nodelet_generate_messages_eus.dir
 /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/nodelet_generate_messages_nodejs.dir
 /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/bond_generate_messages_nodejs.dir

@@ -17,24 +17,30 @@ if (OPENMP_FOUND)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif()
 
-include(ExternalProject)
-if(ENABLE_TEASER)
-  ExternalProject_Add(teaser
-    GIT_REPOSITORY https://github.com/koide3/TEASER-plusplus
-    GIT_TAG master
-    BUILD_IN_SOURCE
-    CMAKE_ARGS -DBUILD_TESTS=OFF -DBUILD_PYTHON_BINDINGS=OFF -DBUILD_DOC=OFF -DBUILD_TEASER_FPFH=ON -DCMAKE_INSTALL_PREFIX=${CATKIN_DEVEL_PREFIX}
-    INSTALL_COMMAND make install
-  )
+# include(ExternalProject)
+# if(ENABLE_TEASER)
+#   ExternalProject_Add(teaser
+#     GIT_REPOSITORY https://github.com/koide3/TEASER-plusplus
+#     GIT_TAG master
+#     BUILD_IN_SOURCE
+#     CMAKE_ARGS -DBUILD_TESTS=OFF -DBUILD_PYTHON_BINDINGS=OFF -DBUILD_DOC=OFF -DBUILD_TEASER_FPFH=ON -DCMAKE_INSTALL_PREFIX=${CATKIN_DEVEL_PREFIX}
+#     INSTALL_COMMAND make install
+#   )
 
-  set(TEASER_LIBRARIES
-    ${CATKIN_DEVEL_PREFIX}/lib/libpmc.so
-    ${CATKIN_DEVEL_PREFIX}/lib/libteaser_registration.so
-    ${CATKIN_DEVEL_PREFIX}/lib/libteaser_features.so
-  )
+#   set(TEASER_LIBRARIES
+#     ${CATKIN_DEVEL_PREFIX}/lib/libpmc.so
+#     ${CATKIN_DEVEL_PREFIX}/lib/libteaser_registration.so
+#     ${CATKIN_DEVEL_PREFIX}/lib/libteaser_features.so
+#   )
 
-  add_definitions(-DTEASER_ENABLED)
-endif()
+#   add_definitions(-DTEASER_ENABLED)
+# endif()
+
+set(TEASER_LIBRARIES
+  /home/yixin/teaser_ba/src/teaser_ba/thirdparty/teaser/libpmc.so
+  /home/yixin/teaser_ba/src/teaser_ba/thirdparty/teaser/libteaser_registration.so
+  /home/yixin/teaser_ba/src/teaser_ba/thirdparty/teaser/libteaser_features.so
+)
 
 ###########
 ## Build ##

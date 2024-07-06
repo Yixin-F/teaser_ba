@@ -79,9 +79,9 @@ teaser_head_EXTERNAL_OBJECTS =
 
 libteaser_head.so: CMakeFiles/teaser_head.dir/include/teaser-toolkit/TeaserHead.cc.o
 libteaser_head.so: CMakeFiles/teaser_head.dir/build.make
-libteaser_head.so: devel/lib/libpmc.so
-libteaser_head.so: devel/lib/libteaser_registration.so
-libteaser_head.so: devel/lib/libteaser_features.so
+libteaser_head.so: ../thirdparty/teaser/libpmc.so
+libteaser_head.so: ../thirdparty/teaser/libteaser_registration.so
+libteaser_head.so: ../thirdparty/teaser/libteaser_features.so
 libteaser_head.so: CMakeFiles/teaser_head.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared library libteaser_head.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/teaser_head.dir/link.txt --verbose=$(VERBOSE)

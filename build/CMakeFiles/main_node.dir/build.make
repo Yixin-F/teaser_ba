@@ -196,9 +196,9 @@ main_node: /opt/ros/noetic/lib/libcpp_common.so
 main_node: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
 main_node: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
 main_node: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
-main_node: devel/lib/libpmc.so
-main_node: devel/lib/libteaser_registration.so
-main_node: devel/lib/libteaser_features.so
+main_node: ../thirdparty/teaser/libpmc.so
+main_node: ../thirdparty/teaser/libteaser_registration.so
+main_node: ../thirdparty/teaser/libteaser_features.so
 main_node: /usr/lib/gcc/x86_64-linux-gnu/9/libgomp.so
 main_node: /usr/lib/x86_64-linux-gnu/libpthread.so
 main_node: CMakeFiles/main_node.dir/link.txt

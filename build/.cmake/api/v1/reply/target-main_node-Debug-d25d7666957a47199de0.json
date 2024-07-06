@@ -36,13 +36,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 51,
+				"line" : 57,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 52,
+				"line" : 58,
 				"parent" : 0
 			},
 			{
@@ -120,15 +120,9 @@
 				"parent" : 10
 			},
 			{
-				"command" : 2,
-				"file" : 0,
-				"line" : 36,
-				"parent" : 0
-			},
-			{
 				"command" : 6,
 				"file" : 0,
-				"line" : 43,
+				"line" : 49,
 				"parent" : 0
 			}
 		]
@@ -159,40 +153,36 @@
 				{
 					"backtrace" : 16,
 					"define" : "ROS_PACKAGE_NAME=\"teaser_ba\""
-				},
-				{
-					"backtrace" : 17,
-					"define" : "TEASER_ENABLED"
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 18,
+					"backtrace" : 17,
 					"path" : "/home/yixin/teaser_ba/src/teaser_ba/include"
 				},
 				{
-					"backtrace" : 18,
+					"backtrace" : 17,
 					"path" : "/opt/ros/noetic/include"
 				},
 				{
-					"backtrace" : 18,
+					"backtrace" : 17,
 					"path" : "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
 				},
 				{
-					"backtrace" : 18,
+					"backtrace" : 17,
 					"path" : "/usr/include/eigen3"
 				},
 				{
-					"backtrace" : 18,
+					"backtrace" : 17,
 					"path" : "/usr/include/pcl-1.10"
 				},
 				{
-					"backtrace" : 18,
+					"backtrace" : 17,
 					"path" : "/usr/include/vtk-7.1"
 				},
 				{
-					"backtrace" : 18,
+					"backtrace" : 17,
 					"path" : "/usr/include/freetype2"
 				}
 			],
@@ -224,11 +214,7 @@
 				"role" : "flags"
 			},
 			{
-				"fragment" : "-L/home/yixin/teaser_ba/src/teaser_ba/build/devel/lib",
-				"role" : "libraryPath"
-			},
-			{
-				"fragment" : "-Wl,-rpath,/home/yixin/teaser_ba/src/teaser_ba/build:/opt/ros/noetic/lib:/home/yixin/teaser_ba/src/teaser_ba/build/devel/lib",
+				"fragment" : "-Wl,-rpath,/home/yixin/teaser_ba/src/teaser_ba/build:/opt/ros/noetic/lib:/home/yixin/teaser_ba/src/teaser_ba/thirdparty/teaser",
 				"role" : "libraries"
 			},
 			{
@@ -709,15 +695,15 @@
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "-lpmc",
+				"fragment" : "../thirdparty/teaser/libpmc.so",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "-lteaser_registration",
+				"fragment" : "../thirdparty/teaser/libteaser_registration.so",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "-lteaser_features",
+				"fragment" : "../thirdparty/teaser/libteaser_features.so",
 				"role" : "libraries"
 			},
 			{

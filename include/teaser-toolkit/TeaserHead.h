@@ -15,7 +15,7 @@
 #define USE_ABSOLUTE_SCALE (false)
 #define CROSS_CHECK (true)
 #define TUPLE_TEST (true)
-#define TUPLE_SCALE (0.8)
+#define TUPLE_SCALE (0.9)
 
 // teaser registeration
 #define NOISE_BOUND (0.1)

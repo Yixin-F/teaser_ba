@@ -557,7 +557,7 @@ teaser_ba_BINARY_DIR:STATIC=/home/yixin/teaser_ba/src/teaser_ba/build
 teaser_ba_SOURCE_DIR:STATIC=/home/yixin/teaser_ba/src/teaser_ba
 
 //Dependencies for the target
-teaser_head_LIB_DEPENDS:STATIC=general;/home/yixin/teaser_ba/src/teaser_ba/build/devel/lib/libpmc.so;general;/home/yixin/teaser_ba/src/teaser_ba/build/devel/lib/libteaser_registration.so;general;/home/yixin/teaser_ba/src/teaser_ba/build/devel/lib/libteaser_features.so;
+teaser_head_LIB_DEPENDS:STATIC=general;/home/yixin/teaser_ba/src/teaser_ba/thirdparty/teaser/libpmc.so;general;/home/yixin/teaser_ba/src/teaser_ba/thirdparty/teaser/libteaser_registration.so;general;/home/yixin/teaser_ba/src/teaser_ba/thirdparty/teaser/libteaser_features.so;
 
 //The directory containing a CMake configuration file for tf2.
 tf2_DIR:PATH=/opt/ros/noetic/share/tf2/cmake

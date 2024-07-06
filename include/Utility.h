@@ -21,9 +21,8 @@
 
 #include <glog/logging.h>
 
-typedef pcl::PointXYZ PointType;
+#include <ceres/ceres.h>
 
-// std::map<frame_id, std::map<corr_id, observation>>
-typedef std::map<int, std::map<int, Eigen::Vector3f>> fea_obs;
+typedef pcl::PointXYZ PointType;
 
 #endif _UTILITY_H_

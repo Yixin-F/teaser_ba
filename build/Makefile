@@ -1000,19 +1000,6 @@ sensor_msgs_generate_messages_py/fast:
 .PHONY : sensor_msgs_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named teaser
-
-# Build rule for target.
-teaser: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 teaser
-.PHONY : teaser
-
-# fast build rule for target.
-teaser/fast:
-	$(MAKE) -f CMakeFiles/teaser.dir/build.make CMakeFiles/teaser.dir/build
-.PHONY : teaser/fast
-
-#=============================================================================
 # Target rules for targets named nodelet_generate_messages_eus
 
 # Build rule for target.
@@ -1466,7 +1453,6 @@ help:
 	@echo "... geometry_msgs_generate_messages_py"
 	@echo "... tf2_msgs_generate_messages_eus"
 	@echo "... sensor_msgs_generate_messages_py"
-	@echo "... teaser"
 	@echo "... nodelet_generate_messages_eus"
 	@echo "... nodelet_generate_messages_nodejs"
 	@echo "... bond_generate_messages_nodejs"
