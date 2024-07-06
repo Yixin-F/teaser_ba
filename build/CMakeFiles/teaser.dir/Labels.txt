@@ -1,0 +1,13 @@
+# Target labels
+ teaser
+# Source files and their labels
+/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/teaser
+/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/teaser.rule
+/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/teaser-complete.rule
+/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-install.rule
+/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-mkdir.rule
+/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-download.rule
+/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-update.rule
+/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-patch.rule
+/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-configure.rule
+/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-build.rule

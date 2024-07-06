@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -fopenmp -g  -shared -Wl,-soname,libteaser_head.so -o libteaser_head.so CMakeFiles/teaser_head.dir/include/teaser-toolkit/TeaserHead.cc.o   -L/home/yixin/teaser_ba/src/teaser_ba/build/devel/lib  -Wl,-rpath,/home/yixin/teaser_ba/src/teaser_ba/build/devel/lib -lpmc -lteaser_registration -lteaser_features 

@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/teaser"
+		},
+		{
+			"file" : "/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/teaser.rule"
+		},
+		{
+			"file" : "/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/teaser-complete.rule"
+		},
+		{
+			"file" : "/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-install.rule"
+		},
+		{
+			"file" : "/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-mkdir.rule"
+		},
+		{
+			"file" : "/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-download.rule"
+		},
+		{
+			"file" : "/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-update.rule"
+		},
+		{
+			"file" : "/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-patch.rule"
+		},
+		{
+			"file" : "/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-configure.rule"
+		},
+		{
+			"file" : "/home/yixin/teaser_ba/src/teaser_ba/build/teaser-prefix/src/teaser-stamp/teaser-build.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"teaser"
+		],
+		"name" : "teaser"
+	}
+}

@@ -1,0 +1,7 @@
+<launch>
+    <!-- <rosparam command="load" file="$(find ig_lio)/config/avia.yaml" /> -->
+
+    <node pkg="teaser_ba" type="main_node" name="main_node" output="screen" />
+    
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ig_lio)/rviz/lio_show.rviz" required="true" /> -->
+</launch>
