@@ -2,6 +2,7 @@
 #define _POINT_TO_POINT_H_
 
 #include "../Utility.h"
+#include "pose_local_parameterization.h"
 
 class pointBA {
 public:
@@ -10,11 +11,6 @@ public:
                   const std::map<int, Eigen::Matrix4f> &bf_poses,
                   std::map<int, Eigen::Vector3f>& opt_landmarks, 
                   std::map<int, Eigen::Matrix4f> &opt_poses);
-    
-    // construct ceres optim parameters
-    ceres::Problem problem;
-    ceres::LossFunction *loss_function = new ceres::CauchyLoss(1.0);
-    ceres::ParameterBlockOrdering *ordering = new ceres::ParameterBlockOrdering();
 };
 
 #endif

@@ -73,6 +73,7 @@
         "variant": "cpp",
         "*.txx": "cpp",
         "core": "cpp",
-        "specialfunctions": "cpp"
+        "specialfunctions": "cpp",
+        "dense": "cpp"
     }
 }

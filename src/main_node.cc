@@ -5,6 +5,8 @@
 
 #include "teaser-toolkit/TeaserHead.h"
 
+#include "ceres/PointToPoint.h"
+
 bool check(const std::vector<std::pair<int, int>>& vec1, const std::vector<std::pair<int, int>>& vec2) {
     std::unordered_set<std::pair<int, int>, boost::hash<std::pair<int, int>>> elementsSet;
 
@@ -57,17 +59,34 @@ int main (int argc, char* argv[])
     LOG(INFO) << "[Cloud] cloud4 size: " << cloud4->points.size();
     
     std::vector<Eigen::Vector3f> all_translation;
+    std::map<int, Eigen::Matrix4f> all_trans;
+    int frame_count = 0;
 
     Eigen::Vector3f translation1(-0.4, 0.6, 0.0);
     all_translation.emplace_back(translation1);
+
+    Eigen::Matrix4f trans1;
+    trans1.setIdentity();
+    trans1.block(0, 3, 3, 1) = translation1;
+    all_trans.insert(std::make_pair(frame_count, trans1));
+    frame_count ++;
+    
     Eigen::Affine3f transform1 = Eigen::Affine3f::Identity();
     transform1.translation() << translation1;
     pcl::transformPointCloud(*cloud1, *cloud1, transform1);
     pcl::io::savePCDFile("/home/yixin/teaser_ba/src/teaser_ba/test/result/cloud1_trans.pcd", *cloud1);
     all_cloud.emplace_back(cloud1);
 
+
     Eigen::Vector3f translation2(-0.4, 1.2, 0.0);
     all_translation.emplace_back(translation2);
+
+    Eigen::Matrix4f trans2;
+    trans2.setIdentity();
+    trans2.block(0, 3, 3, 1) = translation2;
+    all_trans.insert(std::make_pair(frame_count, trans2));
+    frame_count ++;
+
     Eigen::Affine3f transform2 = Eigen::Affine3f::Identity();
     transform2.translation() << translation2;
     pcl::transformPointCloud(*cloud2, *cloud2, transform2);
@@ -76,6 +95,13 @@ int main (int argc, char* argv[])
 
     Eigen::Vector3f translation3(0.8, 1.2, 0.0);
     all_translation.emplace_back(translation3);
+
+    Eigen::Matrix4f trans3;
+    trans3.setIdentity();
+    trans3.block(0, 3, 3, 1) = translation3;
+    all_trans.insert(std::make_pair(frame_count, trans3));
+    frame_count ++;
+
     Eigen::Affine3f transform3 = Eigen::Affine3f::Identity();
     transform3.translation() << translation3;
     pcl::transformPointCloud(*cloud3, *cloud3, transform3);
@@ -84,6 +110,13 @@ int main (int argc, char* argv[])
 
     Eigen::Vector3f translation4(0.8, 0.6, 0.0);
     all_translation.emplace_back(translation4);
+
+    Eigen::Matrix4f trans4;
+    trans4.setIdentity();
+    trans4.block(0, 3, 3, 1) = translation4;
+    all_trans.insert(std::make_pair(frame_count, trans4));
+    frame_count ++;
+
     Eigen::Affine3f transform4 = Eigen::Affine3f::Identity();
     transform4.translation() << translation4;
     pcl::transformPointCloud(*cloud4, *cloud4, transform4);
@@ -271,6 +304,8 @@ int main (int argc, char* argv[])
 
 
     // TODO: get covisibility
+    int fea_id = 0;
+    std::map<int, std::map<int, Eigen::Vector3f>> covisibility_all;
     // ----------------------------- co-visibility with two frames --------------------------------
     std::map<int, std::map<int, Eigen::Vector3f>> covisibility_use2;
     pcl::PointCloud<pcl::PointXYZ>::Ptr coobs_use2(new pcl::PointCloud<pcl::PointXYZ>());
@@ -292,6 +327,8 @@ int main (int argc, char* argv[])
             coobs_use2->points.emplace_back(pt);
         }
         covisibility_use2.insert(std::make_pair(jj, co_tmp));
+        covisibility_all.insert(std::make_pair(fea_id, co_tmp));
+        fea_id ++;
     }
     coobs_use2->height = 1;
     coobs_use2->width = coobs_use2->points.size();
@@ -318,6 +355,8 @@ int main (int argc, char* argv[])
             coobs_use3->points.emplace_back(pt);
         }
         covisibility_use3.insert(std::make_pair(jj, co_tmp));
+        covisibility_all.insert(std::make_pair(fea_id, co_tmp));
+        fea_id ++;
     }
     coobs_use3->height = 1;
     coobs_use3->width = coobs_use3->points.size();
@@ -343,13 +382,20 @@ int main (int argc, char* argv[])
             coobs_use4->points.emplace_back(pt);
         }
         covisibility_use4.insert(std::make_pair(jj, co_tmp));
+        covisibility_all.insert(std::make_pair(fea_id, co_tmp));
+        fea_id ++;
     }
     coobs_use4->height = 1;
     coobs_use4->width = coobs_use4->points.size();
     pcl::io::savePCDFile("/home/yixin/teaser_ba/src/teaser_ba/test/result/co4obs.pcd", *coobs_use4);
     LOG(INFO) << "[covisibility map use four frames] size: " << covisibility_use4.size();
 
-    
+    // TODO: point BA
+    // ---------------------------- ceres BA --------------------------------
+    pointBA point_ba;
+    std::map<int, Eigen::Vector3f> opt_landmarks;
+    std::map<int, Eigen::Matrix4f> opt_poses;
+    point_ba.optimize(covisibility_all, all_trans, opt_landmarks, opt_poses);
 
     // // ---------------------------- old version ------------------------------------
     
