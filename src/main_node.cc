@@ -299,7 +299,7 @@ int main (int argc, char* argv[])
     association_use3.swap(association_use3_new);
     LOG(INFO) << "[data association with three frames] refined size: " << association_use3.size();
 
-    // ----------------------------- refine co-visibility with three frames --------------------------------
+    // ----------------------------- refine co-visibility with four frames --------------------------------
     LOG(INFO) << "[data association with four frames] refined size: " << association_use4.size();
 
 
