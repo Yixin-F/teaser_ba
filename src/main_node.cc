@@ -319,7 +319,7 @@ int main (int argc, char* argv[])
                    all_features[co.first].first[co.second].y,
                    all_features[co.first].first[co.second].z;
             co_tmp.insert(std::make_pair(co.first, obs));
-            std::cout << obs << std::endl;
+            // std::cout << obs << std::endl;
             pcl::PointXYZ pt;
             pt.x = all_features[co.first].first[co.second].x;
             pt.y = all_features[co.first].first[co.second].y;
@@ -393,9 +393,21 @@ int main (int argc, char* argv[])
     // TODO: point BA
     // ---------------------------- ceres BA --------------------------------
     pointBA point_ba;
-    std::map<int, Eigen::Vector3f> opt_landmarks;
-    std::map<int, Eigen::Matrix4f> opt_poses;
+    std::map<int, Eigen::Vector3d> opt_landmarks;
+    std::map<int, Eigen::Matrix4d> opt_poses;
     point_ba.optimize(covisibility_all, all_trans, opt_landmarks, opt_poses);
+
+
+    // TODO: resulted global cloud
+    // -------------------------------  save result -----------------------------------
+    pcl::PointCloud<pcl::PointXYZ>::Ptr global_cloud(new pcl::PointCloud<pcl::PointXYZ>());
+    for (int i = 0; i < opt_poses.size(); i++) {
+        pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
+        pcl::transformPointCloud(*all_cloud[i], *cloud, opt_poses[i]);
+        *global_cloud += *cloud;
+        LOG(INFO) << "[optimized poses] " << i << ":  \n" << opt_poses[i];
+    }
+    pcl::io::savePCDFile("/home/yixin/teaser_ba/src/teaser_ba/test/result/global.pcd", *global_cloud);
 
     // // ---------------------------- old version ------------------------------------
     

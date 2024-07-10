@@ -22,6 +22,7 @@
 #include <glog/logging.h>
 
 #include <ceres/ceres.h>
+#include <ceres/solver.h>
 
 typedef pcl::PointXYZ PointType;
 

@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -fopenmp -g  -shared -Wl,-soname,libceres_head.so -o libceres_head.so CMakeFiles/ceres_head.dir/include/ceres/PointToPoint.cc.o CMakeFiles/ceres_head.dir/include/ceres/pose_local_parameterization.cc.o  /usr/lib/libceres.so.1.14.0 -lglog /usr/lib/x86_64-linux-gnu/libgflags.so.2.2.2 -lpthread 

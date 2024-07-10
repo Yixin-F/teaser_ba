@@ -11,6 +11,8 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
+find_package(Ceres REQUIRED)
+
 find_package(OpenMP)
 if (OPENMP_FOUND)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
@@ -49,14 +51,20 @@ set(TEASER_LIBRARIES
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${CERES_INCLUDE_DIRS}
 )
 
 add_library(teaser_head include/teaser-toolkit/TeaserHead.cc)
 target_link_libraries(teaser_head ${TEASER_LIBRARIES})
 
+add_library(ceres_head include/ceres/PointToPoint.cc include/ceres/pose_local_parameterization.cc)
+target_link_libraries(ceres_head ${CERES_LIBRARIES})
+
+
 add_executable(main_node src/main_node.cc)
 target_link_libraries(main_node
     teaser_head
+    ceres_head
     glog
     OpenMP::OpenMP_CXX
     ${catkin_LIBRARIES}

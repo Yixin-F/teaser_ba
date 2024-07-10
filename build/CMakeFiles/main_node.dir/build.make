@@ -80,6 +80,7 @@ main_node_EXTERNAL_OBJECTS =
 main_node: CMakeFiles/main_node.dir/src/main_node.cc.o
 main_node: CMakeFiles/main_node.dir/build.make
 main_node: libteaser_head.so
+main_node: libceres_head.so
 main_node: /opt/ros/noetic/lib/libpcl_ros_filter.so
 main_node: /opt/ros/noetic/lib/libpcl_ros_tf.so
 main_node: /usr/lib/x86_64-linux-gnu/libboost_thread.so
@@ -199,6 +200,9 @@ main_node: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
 main_node: ../thirdparty/teaser/libpmc.so
 main_node: ../thirdparty/teaser/libteaser_registration.so
 main_node: ../thirdparty/teaser/libteaser_features.so
+main_node: /usr/lib/libceres.so.1.14.0
+main_node: /usr/lib/x86_64-linux-gnu/libglog.so
+main_node: /usr/lib/x86_64-linux-gnu/libgflags.so.2.2.2
 main_node: /usr/lib/gcc/x86_64-linux-gnu/9/libgomp.so
 main_node: /usr/lib/x86_64-linux-gnu/libpthread.so
 main_node: CMakeFiles/main_node.dir/link.txt

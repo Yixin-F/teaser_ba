@@ -168,6 +168,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named ceres_head
+
+# Build rule for target.
+ceres_head: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ceres_head
+.PHONY : ceres_head
+
+# fast build rule for target.
+ceres_head/fast:
+	$(MAKE) -f CMakeFiles/ceres_head.dir/build.make CMakeFiles/ceres_head.dir/build
+.PHONY : ceres_head/fast
+
+#=============================================================================
 # Target rules for targets named tf2_msgs_generate_messages_nodejs
 
 # Build rule for target.
@@ -1324,6 +1337,60 @@ gtest/fast:
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest.dir/build.make gtest/googletest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
 
+include/ceres/PointToPoint.o: include/ceres/PointToPoint.cc.o
+
+.PHONY : include/ceres/PointToPoint.o
+
+# target to build an object file
+include/ceres/PointToPoint.cc.o:
+	$(MAKE) -f CMakeFiles/ceres_head.dir/build.make CMakeFiles/ceres_head.dir/include/ceres/PointToPoint.cc.o
+.PHONY : include/ceres/PointToPoint.cc.o
+
+include/ceres/PointToPoint.i: include/ceres/PointToPoint.cc.i
+
+.PHONY : include/ceres/PointToPoint.i
+
+# target to preprocess a source file
+include/ceres/PointToPoint.cc.i:
+	$(MAKE) -f CMakeFiles/ceres_head.dir/build.make CMakeFiles/ceres_head.dir/include/ceres/PointToPoint.cc.i
+.PHONY : include/ceres/PointToPoint.cc.i
+
+include/ceres/PointToPoint.s: include/ceres/PointToPoint.cc.s
+
+.PHONY : include/ceres/PointToPoint.s
+
+# target to generate assembly for a file
+include/ceres/PointToPoint.cc.s:
+	$(MAKE) -f CMakeFiles/ceres_head.dir/build.make CMakeFiles/ceres_head.dir/include/ceres/PointToPoint.cc.s
+.PHONY : include/ceres/PointToPoint.cc.s
+
+include/ceres/pose_local_parameterization.o: include/ceres/pose_local_parameterization.cc.o
+
+.PHONY : include/ceres/pose_local_parameterization.o
+
+# target to build an object file
+include/ceres/pose_local_parameterization.cc.o:
+	$(MAKE) -f CMakeFiles/ceres_head.dir/build.make CMakeFiles/ceres_head.dir/include/ceres/pose_local_parameterization.cc.o
+.PHONY : include/ceres/pose_local_parameterization.cc.o
+
+include/ceres/pose_local_parameterization.i: include/ceres/pose_local_parameterization.cc.i
+
+.PHONY : include/ceres/pose_local_parameterization.i
+
+# target to preprocess a source file
+include/ceres/pose_local_parameterization.cc.i:
+	$(MAKE) -f CMakeFiles/ceres_head.dir/build.make CMakeFiles/ceres_head.dir/include/ceres/pose_local_parameterization.cc.i
+.PHONY : include/ceres/pose_local_parameterization.cc.i
+
+include/ceres/pose_local_parameterization.s: include/ceres/pose_local_parameterization.cc.s
+
+.PHONY : include/ceres/pose_local_parameterization.s
+
+# target to generate assembly for a file
+include/ceres/pose_local_parameterization.cc.s:
+	$(MAKE) -f CMakeFiles/ceres_head.dir/build.make CMakeFiles/ceres_head.dir/include/ceres/pose_local_parameterization.cc.s
+.PHONY : include/ceres/pose_local_parameterization.cc.s
+
 include/teaser-toolkit/TeaserHead.o: include/teaser-toolkit/TeaserHead.cc.o
 
 .PHONY : include/teaser-toolkit/TeaserHead.o
@@ -1388,6 +1455,7 @@ help:
 	@echo "... install/local"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... ceres_head"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_lisp"
 	@echo "... teaser_head"
@@ -1480,6 +1548,12 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
+	@echo "... include/ceres/PointToPoint.o"
+	@echo "... include/ceres/PointToPoint.i"
+	@echo "... include/ceres/PointToPoint.s"
+	@echo "... include/ceres/pose_local_parameterization.o"
+	@echo "... include/ceres/pose_local_parameterization.i"
+	@echo "... include/ceres/pose_local_parameterization.s"
 	@echo "... include/teaser-toolkit/TeaserHead.o"
 	@echo "... include/teaser-toolkit/TeaserHead.i"
 	@echo "... include/teaser-toolkit/TeaserHead.s"

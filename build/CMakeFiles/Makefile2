@@ -53,6 +53,7 @@ CMAKE_BINARY_DIR = /home/yixin/teaser_ba/src/teaser_ba/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/ceres_head.dir/all
 all: CMakeFiles/teaser_head.dir/all
 all: CMakeFiles/main_node.dir/all
 all: gtest/all
@@ -65,6 +66,7 @@ preinstall: gtest/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
+clean: CMakeFiles/ceres_head.dir/clean
 clean: CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/clean
 clean: CMakeFiles/tf2_msgs_generate_messages_lisp.dir/clean
 clean: CMakeFiles/teaser_head.dir/clean
@@ -212,6 +214,33 @@ gtest/googletest/clean: gtest/googletest/CMakeFiles/gtest.dir/clean
 .PHONY : gtest/googletest/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/ceres_head.dir
+
+# All Build rule for target.
+CMakeFiles/ceres_head.dir/all:
+	$(MAKE) -f CMakeFiles/ceres_head.dir/build.make CMakeFiles/ceres_head.dir/depend
+	$(MAKE) -f CMakeFiles/ceres_head.dir/build.make CMakeFiles/ceres_head.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=1,2,3 "Built target ceres_head"
+.PHONY : CMakeFiles/ceres_head.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ceres_head.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ceres_head.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles 0
+.PHONY : CMakeFiles/ceres_head.dir/rule
+
+# Convenience name for target.
+ceres_head: CMakeFiles/ceres_head.dir/rule
+
+.PHONY : ceres_head
+
+# clean rule for target.
+CMakeFiles/ceres_head.dir/clean:
+	$(MAKE) -f CMakeFiles/ceres_head.dir/build.make CMakeFiles/ceres_head.dir/clean
+.PHONY : CMakeFiles/ceres_head.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/tf2_msgs_generate_messages_nodejs.dir
 
 # All Build rule for target.
@@ -272,7 +301,7 @@ CMakeFiles/tf2_msgs_generate_messages_lisp.dir/clean:
 CMakeFiles/teaser_head.dir/all:
 	$(MAKE) -f CMakeFiles/teaser_head.dir/build.make CMakeFiles/teaser_head.dir/depend
 	$(MAKE) -f CMakeFiles/teaser_head.dir/build.make CMakeFiles/teaser_head.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=11,12 "Built target teaser_head"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=14,15 "Built target teaser_head"
 .PHONY : CMakeFiles/teaser_head.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1646,15 +1675,16 @@ CMakeFiles/roscpp_generate_messages_nodejs.dir/clean:
 # Target rules for target CMakeFiles/main_node.dir
 
 # All Build rule for target.
+CMakeFiles/main_node.dir/all: CMakeFiles/ceres_head.dir/all
 CMakeFiles/main_node.dir/all: CMakeFiles/teaser_head.dir/all
 	$(MAKE) -f CMakeFiles/main_node.dir/build.make CMakeFiles/main_node.dir/depend
 	$(MAKE) -f CMakeFiles/main_node.dir/build.make CMakeFiles/main_node.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=9,10 "Built target main_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=12,13 "Built target main_node"
 .PHONY : CMakeFiles/main_node.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/main_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/main_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles 0
 .PHONY : CMakeFiles/main_node.dir/rule
@@ -2514,7 +2544,7 @@ gtest/googlemock/CMakeFiles/gmock_main.dir/all: gtest/googlemock/CMakeFiles/gmoc
 gtest/googlemock/CMakeFiles/gmock_main.dir/all: gtest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock_main.dir/build.make gtest/googlemock/CMakeFiles/gmock_main.dir/depend
 	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock_main.dir/build.make gtest/googlemock/CMakeFiles/gmock_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=3,4 "Built target gmock_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=6,7 "Built target gmock_main"
 .PHONY : gtest/googlemock/CMakeFiles/gmock_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2541,7 +2571,7 @@ gtest/googlemock/CMakeFiles/gmock_main.dir/clean:
 gtest/googlemock/CMakeFiles/gmock.dir/all: gtest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock.dir/build.make gtest/googlemock/CMakeFiles/gmock.dir/depend
 	$(MAKE) -f gtest/googlemock/CMakeFiles/gmock.dir/build.make gtest/googlemock/CMakeFiles/gmock.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=1,2 "Built target gmock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=4,5 "Built target gmock"
 .PHONY : gtest/googlemock/CMakeFiles/gmock.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2568,7 +2598,7 @@ gtest/googlemock/CMakeFiles/gmock.dir/clean:
 gtest/googletest/CMakeFiles/gtest_main.dir/all: gtest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest_main.dir/build.make gtest/googletest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest_main.dir/build.make gtest/googletest/CMakeFiles/gtest_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=7,8 "Built target gtest_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=10,11 "Built target gtest_main"
 .PHONY : gtest/googletest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2595,7 +2625,7 @@ gtest/googletest/CMakeFiles/gtest_main.dir/clean:
 gtest/googletest/CMakeFiles/gtest.dir/all:
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest.dir/build.make gtest/googletest/CMakeFiles/gtest.dir/depend
 	$(MAKE) -f gtest/googletest/CMakeFiles/gtest.dir/build.make gtest/googletest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=5,6 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=8,9 "Built target gtest"
 .PHONY : gtest/googletest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.

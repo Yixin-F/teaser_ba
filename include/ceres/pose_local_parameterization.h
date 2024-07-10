@@ -1,8 +1,6 @@
-#pragma once
+#ifndef _POSE_LOCAL_PARAMETERIZATION_H_
+#define _POSE_LOCAL_PARAMETERIZATION_H_
 
-#include <ceres/ceres.h>
-#include <eigen3/Eigen/Core>
-#include <eigen3/Eigen/Dense>
 #include "../Utility.h"
 
 class PoseLocalParameterization : public ceres::LocalParameterization {
@@ -42,3 +40,5 @@ class PointProjectionFactor : public ceres::SizedCostFunction<3, 7, 3> {
     static Eigen::Matrix3d sqrt_info;
     static double sum_t;
 };
+
+#endif _POSE_LOCAL_PARAMETERIZATION_H_

@@ -191,6 +191,20 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/opt/ros/noetic/share/xmlrpcpp/cmake/xmlrpcpp-extras.cmake"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/xmlrpcppConfig-version.cmake"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/xmlrpcppConfig.cmake"
+  "/usr/lib/cmake/Ceres/CeresConfig.cmake"
+  "/usr/lib/cmake/Ceres/CeresConfigVersion.cmake"
+  "/usr/lib/cmake/Ceres/CeresTargets-none.cmake"
+  "/usr/lib/cmake/Ceres/CeresTargets.cmake"
+  "/usr/lib/cmake/Ceres/FindEigen.cmake"
+  "/usr/lib/cmake/Ceres/FindGflags.cmake"
+  "/usr/lib/cmake/Ceres/FindGlog.cmake"
+  "/usr/lib/cmake/eigen3/Eigen3Config.cmake"
+  "/usr/lib/cmake/eigen3/Eigen3ConfigVersion.cmake"
+  "/usr/lib/cmake/eigen3/Eigen3Targets.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/gflags/gflags-config-version.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/gflags/gflags-config.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/gflags/gflags-nonamespace-targets-release.cmake"
+  "/usr/lib/x86_64-linux-gnu/cmake/gflags/gflags-nonamespace-targets.cmake"
   "/usr/local/lib/cmake/GTest/GTestConfig.cmake"
   "/usr/local/lib/cmake/GTest/GTestConfigVersion.cmake"
   "/usr/local/lib/cmake/GTest/GTestTargets-release.cmake"
@@ -276,6 +290,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/ceres_head.dir/DependInfo.cmake"
   "CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/DependInfo.cmake"
   "CMakeFiles/tf2_msgs_generate_messages_lisp.dir/DependInfo.cmake"
   "CMakeFiles/teaser_head.dir/DependInfo.cmake"
