@@ -195,7 +195,7 @@ int main (int argc, char* argv[])
                                                                all_features[front].second, all_features[end].second,
                                                                all_translation[front], all_translation[end]);
         all_correspondence.insert(std::make_pair(corr_frontend, correspondence_bt12));
-        LOG(INFO) << "[FPFH features correspondece]" << corr_frontend << " between " << front << " and " << end << " size: " << correspondence_bt12.size();
+        LOG(INFO) << "[FPFH features correspondece] " << corr_frontend << " between " << front << " and " << end << " size: " << correspondence_bt12.size();
     }
 
     // TODO: data association
