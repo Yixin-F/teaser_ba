@@ -1,6 +1,11 @@
 [
 {
   "directory": "/home/yixin/teaser_ba/src/teaser_ba/build",
+  "command": "/usr/bin/c++  -DGFLAGS_IS_A_DLL=0 -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"teaser_ba\\\" -I/home/yixin/teaser_ba/src/teaser_ba/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/pcl-1.10 -I/usr/include/vtk-7.1 -I/usr/include/freetype2   -fopenmp -g   -fopenmp -o CMakeFiles/test_node.dir/src/test_node.cc.o -c /home/yixin/teaser_ba/src/teaser_ba/src/test_node.cc",
+  "file": "/home/yixin/teaser_ba/src/teaser_ba/src/test_node.cc"
+},
+{
+  "directory": "/home/yixin/teaser_ba/src/teaser_ba/build",
   "command": "/usr/bin/c++  -DGFLAGS_IS_A_DLL=0 -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"teaser_ba\\\" -Dceres_head_EXPORTS -I/home/yixin/teaser_ba/src/teaser_ba/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/pcl-1.10 -I/usr/include/vtk-7.1 -I/usr/include/freetype2   -fopenmp -g -fPIC   -o CMakeFiles/ceres_head.dir/include/ceres/PointToPoint.cc.o -c /home/yixin/teaser_ba/src/teaser_ba/include/ceres/PointToPoint.cc",
   "file": "/home/yixin/teaser_ba/src/teaser_ba/include/ceres/PointToPoint.cc"
 },

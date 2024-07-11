@@ -18,6 +18,8 @@
 #include <pcl/search/impl/kdtree.hpp>
 #include <pcl/filters/voxel_grid.h>
 #include <pcl_conversions/pcl_conversions.h>
+#include <pcl/filters/passthrough.h>
+#include <pcl/filters/filter.h>
 
 #include <glog/logging.h>
 

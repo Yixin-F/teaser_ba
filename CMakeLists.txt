@@ -69,3 +69,12 @@ target_link_libraries(main_node
     OpenMP::OpenMP_CXX
     ${catkin_LIBRARIES}
 )
+
+add_executable(test_node src/test_node.cc)
+target_link_libraries(test_node
+    teaser_head
+    ceres_head
+    glog
+    OpenMP::OpenMP_CXX
+    ${catkin_LIBRARIES}
+)

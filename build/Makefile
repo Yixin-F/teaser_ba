@@ -168,6 +168,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_node
+
+# Build rule for target.
+test_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_node
+.PHONY : test_node
+
+# fast build rule for target.
+test_node/fast:
+	$(MAKE) -f CMakeFiles/test_node.dir/build.make CMakeFiles/test_node.dir/build
+.PHONY : test_node/fast
+
+#=============================================================================
 # Target rules for targets named ceres_head
 
 # Build rule for target.
@@ -1445,6 +1458,33 @@ src/main_node.cc.s:
 	$(MAKE) -f CMakeFiles/main_node.dir/build.make CMakeFiles/main_node.dir/src/main_node.cc.s
 .PHONY : src/main_node.cc.s
 
+src/test_node.o: src/test_node.cc.o
+
+.PHONY : src/test_node.o
+
+# target to build an object file
+src/test_node.cc.o:
+	$(MAKE) -f CMakeFiles/test_node.dir/build.make CMakeFiles/test_node.dir/src/test_node.cc.o
+.PHONY : src/test_node.cc.o
+
+src/test_node.i: src/test_node.cc.i
+
+.PHONY : src/test_node.i
+
+# target to preprocess a source file
+src/test_node.cc.i:
+	$(MAKE) -f CMakeFiles/test_node.dir/build.make CMakeFiles/test_node.dir/src/test_node.cc.i
+.PHONY : src/test_node.cc.i
+
+src/test_node.s: src/test_node.cc.s
+
+.PHONY : src/test_node.s
+
+# target to generate assembly for a file
+src/test_node.cc.s:
+	$(MAKE) -f CMakeFiles/test_node.dir/build.make CMakeFiles/test_node.dir/src/test_node.cc.s
+.PHONY : src/test_node.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1455,6 +1495,7 @@ help:
 	@echo "... install/local"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... test_node"
 	@echo "... ceres_head"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_lisp"
@@ -1560,6 +1601,9 @@ help:
 	@echo "... src/main_node.o"
 	@echo "... src/main_node.i"
 	@echo "... src/main_node.s"
+	@echo "... src/test_node.o"
+	@echo "... src/test_node.i"
+	@echo "... src/test_node.s"
 .PHONY : help
 
 

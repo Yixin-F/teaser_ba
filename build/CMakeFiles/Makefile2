@@ -53,6 +53,7 @@ CMAKE_BINARY_DIR = /home/yixin/teaser_ba/src/teaser_ba/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/test_node.dir/all
 all: CMakeFiles/ceres_head.dir/all
 all: CMakeFiles/teaser_head.dir/all
 all: CMakeFiles/main_node.dir/all
@@ -66,6 +67,7 @@ preinstall: gtest/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
+clean: CMakeFiles/test_node.dir/clean
 clean: CMakeFiles/ceres_head.dir/clean
 clean: CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/clean
 clean: CMakeFiles/tf2_msgs_generate_messages_lisp.dir/clean
@@ -212,6 +214,34 @@ gtest/googletest/clean: gtest/googletest/CMakeFiles/gtest_main.dir/clean
 gtest/googletest/clean: gtest/googletest/CMakeFiles/gtest.dir/clean
 
 .PHONY : gtest/googletest/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_node.dir
+
+# All Build rule for target.
+CMakeFiles/test_node.dir/all: CMakeFiles/ceres_head.dir/all
+CMakeFiles/test_node.dir/all: CMakeFiles/teaser_head.dir/all
+	$(MAKE) -f CMakeFiles/test_node.dir/build.make CMakeFiles/test_node.dir/depend
+	$(MAKE) -f CMakeFiles/test_node.dir/build.make CMakeFiles/test_node.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=16,17 "Built target test_node"
+.PHONY : CMakeFiles/test_node.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_node.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles 7
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test_node.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_node.dir/rule
+
+# Convenience name for target.
+test_node: CMakeFiles/test_node.dir/rule
+
+.PHONY : test_node
+
+# clean rule for target.
+CMakeFiles/test_node.dir/clean:
+	$(MAKE) -f CMakeFiles/test_node.dir/build.make CMakeFiles/test_node.dir/clean
+.PHONY : CMakeFiles/test_node.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/ceres_head.dir
