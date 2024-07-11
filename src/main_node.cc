@@ -130,7 +130,6 @@ int main (int argc, char* argv[])
     ros::init(argc, argv, "teaser_ba");
     ros::NodeHandle nh;
 
-    // 创建一个订阅者，订阅点云数据主题
     ros::Subscriber sub = nh.subscribe("/point_cloud_topic", 10, cloudCallback);
 
     fpfh_teaser my_teaser;
