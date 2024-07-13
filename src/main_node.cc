@@ -72,7 +72,7 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& input)
 
     // downsampling
     pcl::VoxelGrid<pcl::PointXYZ> downsample;
-    downsample.setLeafSize(0.01, 0.01, 0.01);
+    downsample.setLeafSize(0.01, 0.01, 0.01);  // 10mm
     downsample.setInputCloud(cloud);
     downsample.filter(*cloud);
 
@@ -229,7 +229,10 @@ int main (int argc, char* argv[])
                 bool find_flag = false;
                 for (auto& ass : association_use3_tmp) {
                     // std::cout << ass.back().first << " " << front << " " << ass.back().second << " " << cor.begin()->first << std::endl;
-                    if (ass.back().first == front && ass.back().second == cor.begin()->first) {
+                    if ((ass.back().first == front && ass.back().second == cor.begin()->first) ||
+                        (ass.front().first == front && ass.front().second == cor.begin()->first) ||
+                        (ass.front().first == end && ass.front().second == cor.begin()->second) ||
+                        (ass.back().first == end && ass.back().second == cor.begin()->second)) {
                         ass.emplace_back(std::make_pair(end, cor.begin()->second));
                         // std::cout << "add" << std::endl;
                         find_flag = true;
@@ -292,7 +295,7 @@ int main (int argc, char* argv[])
     }
     LOG(INFO) << "[data association with four frames] size: " << association_use4.size();
 
-
+if (0) {
     // TODO: data refinement
     // ----------------------------- refine co-visibility with two frames --------------------------------
     std::vector<std::vector<std::pair<int, int>>> association_use2_new;
@@ -330,7 +333,7 @@ int main (int argc, char* argv[])
 
     // ----------------------------- refine co-visibility with four frames --------------------------------
     LOG(INFO) << "[data association with four frames] refined size: " << association_use4.size();
-
+}
 
     // TODO: get covisibility
     int fea_id = 0;
