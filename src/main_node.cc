@@ -155,6 +155,8 @@ int main (int argc, char* argv[])
 
 
     ros::Time start = ros::Time::now();
+
+    ros::Time start_data = ros::Time::now();
     
     // TODO: get feature
     std::vector<std::pair<teaser::PointCloud, teaser::FPFHCloud>> all_features;
@@ -294,6 +296,10 @@ int main (int argc, char* argv[])
         }
     }
     LOG(INFO) << "[data association with four frames] size: " << association_use4.size();
+
+    ros::Time end_data = ros::Time::now();
+
+    LOG(INFO) << "[data association time cost] " << (end_data - start_data).toSec();
 
 if (0) {
     // TODO: data refinement

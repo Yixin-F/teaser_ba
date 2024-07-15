@@ -103,22 +103,16 @@ public:
             }
         }
 
-        // slove ceres problem
         ceres::Solver::Options options;
         options.minimizer_progress_to_stdout = true;
-        // options.max_num_iterations = 15;
-        // options.linear_solver_type = ceres::DENSE_SCHUR;
         options.linear_solver_type = ceres::ITERATIVE_SCHUR;
         options.trust_region_strategy_type = ceres::LEVENBERG_MARQUARDT;
         options.update_state_every_iteration = true;
-        // options.gradient_tolerance = 1e-3;
-        // options.function_tolerance = 1e-4;
-        options.max_num_iterations = 100;
+        options.max_num_iterations = 50;
 
         ceres::Solver::Summary summary;
         ceres::Solve (options, &problem, & summary);
 
-        // update ceres results
         for (auto kf =  bf_poses.begin(); kf !=  bf_poses.end(); kf++) {
             int kf_id = kf->first;
             Eigen::Vector3d tran(Para_Pose[kf_id][0], Para_Pose[kf_id][1], Para_Pose[kf_id][2]);
@@ -131,7 +125,6 @@ public:
             opt_poses[kf_id] = Twc;
         }
 
-        // update mappoints
         for (auto mp = covisibility.begin(); mp != covisibility.end(); mp++) {
             int mp_id = mp->first;
 
