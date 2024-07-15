@@ -184,18 +184,5 @@ bool PointProjectionFactor::Evaluate(double const *const *parameters,
     }
   }
 
-  // check jacobian
-  // std::cout << "---------- check jacobian ----------\n";
-  // if (jacobians[0])
-  //   std::cout << Eigen::Map<Eigen::Matrix<double, 2, 7, Eigen::RowMajor>>(
-  //                    jacobians[0])
-  //             << std::endl
-  //             << std::endl;
-  // if (jacobians[1])
-  //   std::cout << Eigen::Map<Eigen::Matrix<double, 2, 3, Eigen::RowMajor>>(
-  //                    jacobians[1])
-  //             << std::endl
-  //             << std::endl;
-
   return true;
 }
