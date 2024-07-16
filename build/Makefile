@@ -181,6 +181,19 @@ test_node/fast:
 .PHONY : test_node/fast
 
 #=============================================================================
+# Target rules for targets named g2o_head
+
+# Build rule for target.
+g2o_head: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 g2o_head
+.PHONY : g2o_head
+
+# fast build rule for target.
+g2o_head/fast:
+	$(MAKE) -f CMakeFiles/g2o_head.dir/build.make CMakeFiles/g2o_head.dir/build
+.PHONY : g2o_head/fast
+
+#=============================================================================
 # Target rules for targets named ceres_head
 
 # Build rule for target.
@@ -1404,6 +1417,33 @@ include/ceres/pose_local_parameterization.cc.s:
 	$(MAKE) -f CMakeFiles/ceres_head.dir/build.make CMakeFiles/ceres_head.dir/include/ceres/pose_local_parameterization.cc.s
 .PHONY : include/ceres/pose_local_parameterization.cc.s
 
+include/g2o/PointToPoint.o: include/g2o/PointToPoint.cc.o
+
+.PHONY : include/g2o/PointToPoint.o
+
+# target to build an object file
+include/g2o/PointToPoint.cc.o:
+	$(MAKE) -f CMakeFiles/g2o_head.dir/build.make CMakeFiles/g2o_head.dir/include/g2o/PointToPoint.cc.o
+.PHONY : include/g2o/PointToPoint.cc.o
+
+include/g2o/PointToPoint.i: include/g2o/PointToPoint.cc.i
+
+.PHONY : include/g2o/PointToPoint.i
+
+# target to preprocess a source file
+include/g2o/PointToPoint.cc.i:
+	$(MAKE) -f CMakeFiles/g2o_head.dir/build.make CMakeFiles/g2o_head.dir/include/g2o/PointToPoint.cc.i
+.PHONY : include/g2o/PointToPoint.cc.i
+
+include/g2o/PointToPoint.s: include/g2o/PointToPoint.cc.s
+
+.PHONY : include/g2o/PointToPoint.s
+
+# target to generate assembly for a file
+include/g2o/PointToPoint.cc.s:
+	$(MAKE) -f CMakeFiles/g2o_head.dir/build.make CMakeFiles/g2o_head.dir/include/g2o/PointToPoint.cc.s
+.PHONY : include/g2o/PointToPoint.cc.s
+
 include/teaser-toolkit/TeaserHead.o: include/teaser-toolkit/TeaserHead.cc.o
 
 .PHONY : include/teaser-toolkit/TeaserHead.o
@@ -1496,6 +1536,7 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test_node"
+	@echo "... g2o_head"
 	@echo "... ceres_head"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_lisp"
@@ -1595,6 +1636,9 @@ help:
 	@echo "... include/ceres/pose_local_parameterization.o"
 	@echo "... include/ceres/pose_local_parameterization.i"
 	@echo "... include/ceres/pose_local_parameterization.s"
+	@echo "... include/g2o/PointToPoint.o"
+	@echo "... include/g2o/PointToPoint.i"
+	@echo "... include/g2o/PointToPoint.s"
 	@echo "... include/teaser-toolkit/TeaserHead.o"
 	@echo "... include/teaser-toolkit/TeaserHead.i"
 	@echo "... include/teaser-toolkit/TeaserHead.s"

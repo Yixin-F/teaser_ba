@@ -8,6 +8,8 @@
 
 #include "ceres/PointToPoint.h"
 
+#include "g2o/PointToPoint.h"
+
 // initialize 
 int mode = 0; // 0 -> C, 1 -> S
 
@@ -36,6 +38,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr truss_cloud(new pcl::PointCloud<pcl::PointXY
 std::vector<pcl::PointCloud<PointType>::Ptr> all_cloud;
 std::vector<Eigen::Vector3f> all_translation;
 std::map<int, Eigen::Matrix4f> all_trans;
+std::map<int, Eigen::Matrix4d> all_trans_double;
 std::map<float, std::vector<std::map<int, int>>> all_correspondence;
 
 bool check(const std::vector<std::pair<int, int>>& vec1, const std::vector<std::pair<int, int>>& vec2) {
@@ -92,6 +95,7 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& input)
         trans.setIdentity();
         trans.block(0, 3, 3, 1) = truss_positionC[num_cloud];
         all_trans.insert(std::make_pair(num_cloud, trans));
+        all_trans_double.insert(std::make_pair(num_cloud, trans.cast<double>()));
 
         LOG(INFO) << "recieved cloud " << num_cloud << " with size " << cloud->points.size();
 
@@ -112,8 +116,9 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& input)
         trans.setIdentity();
         trans.block(0, 3, 3, 1) = truss_positionC[num_cloud];
         all_trans.insert(std::make_pair(num_cloud, trans));
+        all_trans_double.insert(std::make_pair(num_cloud, trans.cast<double>()));
 
-        LOG(INFO) << "recieved cloud " << num_cloud << "with size " << cloud->points.size();
+        LOG(INFO) << "recieved cloud " << num_cloud << " with size " << cloud->points.size();
 
         num_cloud ++;
     }
@@ -165,7 +170,12 @@ int main (int argc, char* argv[])
         all_features.emplace_back(feature_pair);
         LOG(INFO) << "[FPFH features extraction] size: " << feature_pair.second.size();
     }
-    
+
+    // TODO: get group
+    std::vector<std::vector<float>> group_use2;
+    std::vector<std::vector<float>> group_use3;
+    std::vector<std::vector<float>> group_use4;
+
     // TRUSS C :
     //  0 ---- 1 ---- 2 ---- 3 ---- 4 ---- 5 ---- 6 
     //  | \  / | \  / | \  / | \  / | \  / | \  / |
@@ -174,18 +184,58 @@ int main (int argc, char* argv[])
     //  | /  \ | /  \ | /  \ | /  \ | /  \ | /  \ |
     // 13 --- 12 --- 11 --- 10 ---- 9 ---- 8 ---- 7
 
-    // TODO: get group
-    std::vector<std::vector<float>> group_use2 {{0.01}, {1.02}, {2.03}, {3.04}, {4.05}, {5.06}, {6.07}, {7.08}, {8.09}, {9.10}, {10.11}, {11.12}, {12.13}, {0.13},
+    if (mode == 0) {
+    group_use2 = {{0.01}, {1.02}, {2.03}, {3.04}, {4.05}, {5.06}, {6.07}, {7.08}, {8.09}, {9.10}, {10.11}, {11.12}, {12.13}, {0.13},
                                                 {1.12}, {2.11}, {3.10}, {4.09}, {5.08},
                                                 {0.12}, {1.13}, {1.11}, {2.12}, {2.10}, {3.11}, {3.09}, {4.10}, {4.08}, {5.09}, {5.07}, {6.08}};  // two frames
-    std::vector<std::vector<float>> group_use3 {{0.01, 1.12}, {0.01, 0.13}, {0.13, 12.13}, {1.12, 12.13},
+    group_use3 = {{0.01, 1.12}, {0.01, 0.13}, {0.13, 12.13}, {1.12, 12.13},
                                                 {1.12, 1.02}, {1.02, 2.11}, {2.11, 11.12}, {11.12, 1.12},
                                                 {2.03, 2.11}, {2.03, 3.10}, {3.10, 10.11}, {10.11, 2.11},
                                                 {3.10, 3.04}, {3.04, 4.09}, {4.09, 9.10}, {9.10, 3.10},
                                                 {4.09, 4.05}, {4.05, 5.08}, {5.08, 8.09}, {8.09, 4.09},
                                                 {5.08, 5.06}, {5.06, 6.07}, {6.07, 7.08}, {7.08, 5.08}}; // three frames
-    std::vector<std::vector<float>> group_use4 {{0.01, 1.12, 12.13}, {1.02, 2.11, 11.12}, {2.03, 3.10, 10.11},
+    group_use4 = {{0.01, 1.12, 12.13}, {1.02, 2.11, 11.12}, {2.03, 3.10, 10.11},
                                                 {3.04, 4.09, 9.10}, {4.05, 5.08, 8.09}, {5.06, 6.07, 7.08}}; // four frames
+    }
+
+    // TRUSS S :
+    //  0 ---- 1 ---- 2 ---- 3 ---- 4 ---- 5 ---- 6 
+    //  | \  / | \  / | \  / | \  / | \  / | \  / |
+    //  |  \/  |  \/  |  \/  |  \/  |  \/  |  \/  |
+    //  |  /\  |  /\  |  /\  |  /\  |  /\  |  /\  |
+    //  | /  \ | /  \ | /  \ | /  \ | /  \ | /  \ |
+    // 13 --- 12 --- 11 --- 10 ---- 9 ---- 8 ---- 7
+    //  | \  / | \  / | \  / | \  / | \  / | \  / |
+    //  |  \/  |  \/  |  \/  |  \/  |  \/  |  \/  |
+    //  |  /\  |  /\  |  /\  |  /\  |  /\  |  /\  |
+    //  | /  \ | /  \ | /  \ | /  \ | /  \ | /  \ |
+    // 14 --- 15 --- 16 --- 17 --- 18 --- 19 --- 20
+
+    if (mode == 1) {
+    // TODO: get group
+    group_use2 = {{0.01}, {1.02}, {2.03}, {3.04}, {4.05}, {5.06}, {6.07}, {7.08}, {8.09}, {9.10}, {10.11}, {11.12}, {12.13}, {0.13},
+                                                {1.12}, {2.11}, {3.10}, {4.09}, {5.08},
+                                                {0.12}, {1.13}, {1.11}, {2.12}, {2.10}, {3.11}, {3.09}, {4.10}, {4.08}, {5.09}, {5.07}, {6.08},
+                                                {7.20}, {7.19}, {8.20}, {8.19}, {8.18}, {9.19}, {9.18}, {9.17}, {10.18}, {10.17}, {10.16}, {11.17}, {11.16}, {11.15},
+                                                {12.16}, {12.15}, {12.14}, {13.15}, {13.14}, {14.15}, {15.16}, {16.17}, {17.18}, {18.19}, {19.20}};  // two frames
+    group_use3 = {{0.01, 1.12}, {0.01, 0.13}, {0.13, 12.13}, {1.12, 12.13},
+                                                {1.12, 1.02}, {1.02, 2.11}, {2.11, 11.12}, {11.12, 1.12},
+                                                {2.03, 2.11}, {2.03, 3.10}, {3.10, 10.11}, {10.11, 2.11},
+                                                {3.10, 3.04}, {3.04, 4.09}, {4.09, 9.10}, {9.10, 3.10},
+                                                {4.09, 4.05}, {4.05, 5.08}, {5.08, 8.09}, {8.09, 4.09},
+                                                {5.08, 5.06}, {5.06, 6.07}, {6.07, 7.08}, {7.08, 5.08},
+                                                {12.13, 12.15}, {12.15, 14.15}, {14.15, 13.14}, {12.13, 13.14},
+                                                {11.12, 12.15}, {11.12, 11.16}, {11.16}, {15.16}, {11.16, 16.17},
+                                                {10.11, 11.16}, {10.11, 10.17}, {10.17, 16.17}, {16.17, 11.16},
+                                                {9.10, 10.17}, {9.10, 9.18}, {9.17, 17.18}, {17.18, 10.17},
+                                                {8.09, 9.18}, {8.09, 8.19}, {8.19, 18.19}, {18.19, 9.18},
+                                                {7.08, 8.19}, {7.20, 7.08}, {7.20, 19.20}, {19.20, 8.19}}; // three frames
+    group_use4 = {{0.01, 1.12, 12.13}, {1.02, 2.11, 11.12}, {2.03, 3.10, 10.11},
+                                                {3.04, 4.09, 9.10}, {4.05, 5.08, 8.09}, {5.06, 6.07, 7.08},
+                                                {12.13, 13.14, 14.15}, {11.12, 12.15, 15.16}, {10.11, 11.16, 16.17},
+                                                {9.10, 10.17, 17.18}, {8.09, 9.18, 18.19}, {7.08, 8.19, 19.20}}; // four frames
+    }
+
 
     // TODO: get correspondence
     for (auto& group : group_use2) {
@@ -344,12 +394,14 @@ if (0) {
     // TODO: get covisibility
     int fea_id = 0;
     std::map<int, std::map<int, Eigen::Vector3f>> covisibility_all;
+    std::map<int, std::map<int, Eigen::Vector3d>> covisibility_all_double;
     // ----------------------------- co-visibility with two frames --------------------------------
     std::map<int, std::map<int, Eigen::Vector3f>> covisibility_use2;
     pcl::PointCloud<pcl::PointXYZ>::Ptr coobs_use2(new pcl::PointCloud<pcl::PointXYZ>());
 
     for (int jj = 0; jj < association_use2.size(); jj++) {
         std::map<int, Eigen::Vector3f> co_tmp;
+        std::map<int, Eigen::Vector3d> co_tmp_double;
         for (auto& co : association_use2[jj]) {
             // std::cout << co.first << " " << co.second << std::endl;
             Eigen::Vector3f obs;
@@ -357,6 +409,7 @@ if (0) {
                    all_features[co.first].first[co.second].y,
                    all_features[co.first].first[co.second].z;
             co_tmp.insert(std::make_pair(co.first, obs));
+            co_tmp_double.insert(std::make_pair(co.first, obs.cast<double>()));
             // std::cout << obs << std::endl;
             pcl::PointXYZ pt;
             pt.x = all_features[co.first].first[co.second].x;
@@ -366,6 +419,7 @@ if (0) {
         }
         covisibility_use2.insert(std::make_pair(jj, co_tmp));
         covisibility_all.insert(std::make_pair(fea_id, co_tmp));
+        covisibility_all_double.insert(std::make_pair(fea_id, co_tmp_double));
         fea_id ++;
     }
     coobs_use2->height = 1;
@@ -379,6 +433,7 @@ if (0) {
 
     for (int jj = 0; jj < association_use3.size(); jj++) {
         std::map<int, Eigen::Vector3f> co_tmp;
+        std::map<int, Eigen::Vector3d> co_tmp_double;
         for (auto& co : association_use3[jj]) {
             // std::cout << co.first << " " << co.second << std::endl;
             Eigen::Vector3f obs;
@@ -386,6 +441,7 @@ if (0) {
                    all_features[co.first].first[co.second].y,
                    all_features[co.first].first[co.second].z;
             co_tmp.insert(std::make_pair(co.first, obs));
+            co_tmp_double.insert(std::make_pair(co.first, obs.cast<double>()));
             pcl::PointXYZ pt;
             pt.x = all_features[co.first].first[co.second].x;
             pt.y = all_features[co.first].first[co.second].y;
@@ -394,6 +450,7 @@ if (0) {
         }
         covisibility_use3.insert(std::make_pair(jj, co_tmp));
         covisibility_all.insert(std::make_pair(fea_id, co_tmp));
+        covisibility_all_double.insert(std::make_pair(fea_id, co_tmp_double));
         fea_id ++;
     }
     coobs_use3->height = 1;
@@ -407,12 +464,14 @@ if (0) {
 
     for (int jj = 0; jj < association_use4.size(); jj++) {
         std::map<int, Eigen::Vector3f> co_tmp;
+        std::map<int, Eigen::Vector3d> co_tmp_double;
         for (auto& co : association_use4[jj]) {
             Eigen::Vector3f obs;
             obs << all_features[co.first].first[co.second].x, 
                    all_features[co.first].first[co.second].y,
                    all_features[co.first].first[co.second].z;
             co_tmp.insert(std::make_pair(co.first, obs));
+            co_tmp_double.insert(std::make_pair(co.first, obs.cast<double>()));
             pcl::PointXYZ pt;
             pt.x = all_features[co.first].first[co.second].x;
             pt.y = all_features[co.first].first[co.second].y;
@@ -421,6 +480,7 @@ if (0) {
         }
         covisibility_use4.insert(std::make_pair(jj, co_tmp));
         covisibility_all.insert(std::make_pair(fea_id, co_tmp));
+        covisibility_all_double.insert(std::make_pair(fea_id, co_tmp_double));
         fea_id ++;
     }
     coobs_use4->height = 1;
@@ -428,12 +488,18 @@ if (0) {
     pcl::io::savePCDFile("/home/yixin/teaser_ba/src/teaser_ba/test/result/co4obs.pcd", *coobs_use4);
     LOG(INFO) << "[covisibility map use four frames] size: " << covisibility_use4.size();
 
-    // TODO: point BA
-    // ---------------------------- ceres BA --------------------------------
-    pointBA point_ba;
+    // // TODO: point BA
+    // // ---------------------------- ceres BA --------------------------------
+    // pointBA point_ba;
+    // std::map<int, Eigen::Vector3d> opt_landmarks;
+    // std::map<int, Eigen::Matrix4d> opt_poses;
+    // point_ba.optimize(covisibility_all, all_trans, opt_landmarks, opt_poses);
+
+    // ---------------------------- g2o BA --------------------------------
+    PointBAusingG2O point_ba_g2o;
     std::map<int, Eigen::Vector3d> opt_landmarks;
     std::map<int, Eigen::Matrix4d> opt_poses;
-    point_ba.optimize(covisibility_all, all_trans, opt_landmarks, opt_poses);
+    point_ba_g2o.optimize(covisibility_all_double, all_trans_double, opt_landmarks, opt_poses);
 
     // TODO: resulted global cloud
     // -------------------------------  save result -----------------------------------

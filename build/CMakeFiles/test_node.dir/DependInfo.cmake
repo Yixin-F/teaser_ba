@@ -31,6 +31,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/teaser_head.dir/DependInfo.cmake"
   "/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/ceres_head.dir/DependInfo.cmake"
+  "/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/g2o_head.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

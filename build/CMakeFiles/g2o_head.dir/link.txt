@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -fopenmp -g  -shared -Wl,-soname,libg2o_head.so -o libg2o_head.so CMakeFiles/g2o_head.dir/include/g2o/PointToPoint.cc.o  -lg2o_core -lg2o_types_slam3d -lg2o_types_data -lg2o_solver_csparse -lg2o_stuff -lg2o_csparse_extension -lg2o_types_sba 

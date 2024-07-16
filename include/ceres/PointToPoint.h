@@ -91,6 +91,7 @@ public:
                 continue;
             }
 
+            // FIXME: should we have to add the anchor landmark's obsevation as residual ??
             auto obs_group = asso_mp_mea->second;
             for (auto obs_index = obs_group.begin(); obs_index != obs_group.end(); obs_index++) {
                 int kf_id = obs_index->first;

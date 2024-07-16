@@ -165,8 +165,8 @@ std::vector<std::map<int, int>> fpfh_teaser::getCorrespondence(teaser::PointClou
     std::vector<std::map<int, int>> map_corr;
     // float delta_x = std::abs(trans2(0) - trans1(0) + 0.02);
     // float delta_y = std::abs(trans2(1) - trans1(1) + 0.02);
-    float delta_x = std::abs(0.05);
-    float delta_y = std::abs(0.05);
+    float delta_x = std::abs(0.03);
+    float delta_y = std::abs(0.03);
 
     for (auto& corr : correspondences) {
         if (std::abs(pc2[corr.second].x - pc1[corr.first].x) >= delta_x || std::abs(pc2[corr.second].y - pc1[corr.first].y) >= delta_y) {

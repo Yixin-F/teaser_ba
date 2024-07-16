@@ -81,6 +81,7 @@ test_node: CMakeFiles/test_node.dir/src/test_node.cc.o
 test_node: CMakeFiles/test_node.dir/build.make
 test_node: libteaser_head.so
 test_node: libceres_head.so
+test_node: libg2o_head.so
 test_node: /opt/ros/noetic/lib/libpcl_ros_filter.so
 test_node: /opt/ros/noetic/lib/libpcl_ros_tf.so
 test_node: /usr/lib/x86_64-linux-gnu/libboost_thread.so

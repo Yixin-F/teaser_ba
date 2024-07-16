@@ -3,6 +3,10 @@ project(teaser_ba)
 
 option(ENABLE_TEASER "Build with Teaser++" TRUE)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   pcl_ros
@@ -12,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(Ceres REQUIRED)
+find_package(g2o REQUIRED)
 
 find_package(OpenMP)
 if (OPENMP_FOUND)
@@ -52,6 +57,7 @@ include_directories(
   include
   ${catkin_INCLUDE_DIRS}
   ${CERES_INCLUDE_DIRS}
+  ${G2O_INCLUDE_DIRS}
 )
 
 add_library(teaser_head include/teaser-toolkit/TeaserHead.cc)
@@ -60,11 +66,15 @@ target_link_libraries(teaser_head ${TEASER_LIBRARIES})
 add_library(ceres_head include/ceres/PointToPoint.cc include/ceres/pose_local_parameterization.cc)
 target_link_libraries(ceres_head ${CERES_LIBRARIES})
 
+add_library(g2o_head include/g2o/PointToPoint.cc)
+target_link_libraries(g2o_head ${G2O_LIBRARIES} g2o_core g2o_types_slam3d g2o_types_data g2o_solver_csparse g2o_stuff g2o_csparse_extension g2o_types_sba)
+
 
 add_executable(main_node src/main_node.cc)
 target_link_libraries(main_node
     teaser_head
     ceres_head
+    g2o_head
     glog
     OpenMP::OpenMP_CXX
     ${catkin_LIBRARIES}
@@ -74,6 +84,7 @@ add_executable(test_node src/test_node.cc)
 target_link_libraries(test_node
     teaser_head
     ceres_head
+    g2o_head
     glog
     OpenMP::OpenMP_CXX
     ${catkin_LIBRARIES}

@@ -8,6 +8,8 @@
 
 #include "ceres/PointToPoint.h"
 
+#include "g2o/PointToPoint.h"
+
 bool check(const std::vector<std::pair<int, int>>& vec1, const std::vector<std::pair<int, int>>& vec2) {
     std::unordered_set<std::pair<int, int>, boost::hash<std::pair<int, int>>> elementsSet;
 

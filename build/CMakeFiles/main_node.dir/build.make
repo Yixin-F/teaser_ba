@@ -81,6 +81,7 @@ main_node: CMakeFiles/main_node.dir/src/main_node.cc.o
 main_node: CMakeFiles/main_node.dir/build.make
 main_node: libteaser_head.so
 main_node: libceres_head.so
+main_node: libg2o_head.so
 main_node: /opt/ros/noetic/lib/libpcl_ros_filter.so
 main_node: /opt/ros/noetic/lib/libpcl_ros_tf.so
 main_node: /usr/lib/x86_64-linux-gnu/libboost_thread.so

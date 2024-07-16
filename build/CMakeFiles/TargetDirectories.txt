@@ -3,6 +3,7 @@
 /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/list_install_components.dir
 /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/rebuild_cache.dir
 /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/test_node.dir
+/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/g2o_head.dir
 /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/ceres_head.dir
 /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir
 /home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/tf2_msgs_generate_messages_lisp.dir
