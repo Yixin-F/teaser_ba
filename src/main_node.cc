@@ -515,11 +515,11 @@ if (remove) {
     LOG(INFO) << "[covisibility map use four frames] size: " << covisibility_use4.size();
 
     // TODO: point BA
-    // // ---------------------------- ceres BA --------------------------------
-    // pointBA point_ba;
-    // std::map<int, Eigen::Vector3d> opt_landmarks;
-    // std::map<int, Eigen::Matrix4d> opt_poses;
-    // point_ba.optimize(covisibility_all, all_trans, opt_landmarks, opt_poses);
+    // ---------------------------- ceres BA --------------------------------
+    pointBA point_ba;
+    std::map<int, Eigen::Vector3d> opt_landmarks;
+    std::map<int, Eigen::Matrix4d> opt_poses;
+    point_ba.optimize(covisibility_all, all_trans, opt_landmarks, opt_poses);
 
     // // ---------------------------- online g2o BA --------------------------------
     // PointBAusingG2O point_ba_g2o;
