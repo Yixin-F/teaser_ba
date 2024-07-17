@@ -13,7 +13,7 @@
 // initialize 
 int mode = 0; // 0 -> C, 1 -> S
 
-int reuse = 1;
+int reuse = 0;
 
 std::map<int, Eigen::Vector3f> truss_positionC {{0, Eigen::Vector3f{0., 0., 0.}}, {1, Eigen::Vector3f{0., 0.6, 0.}},
                                                 {2, Eigen::Vector3f{0., 1.2, 0.}}, {3, Eigen::Vector3f{0., 1.8, 0.}},
@@ -365,7 +365,7 @@ int main (int argc, char* argv[])
 
     LOG(INFO) << "[data association time cost] " << (end_data - start_data).toSec();
 
-if (remove) {
+if (reuse) {
     // TODO: data refinement
     // ----------------------------- refine co-visibility with two frames --------------------------------
     std::vector<std::vector<std::pair<int, int>>> association_use2_new;
