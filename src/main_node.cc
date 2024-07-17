@@ -527,13 +527,13 @@ if (remove) {
     // std::map<int, Eigen::Matrix4d> opt_poses;
     // point_ba_g2o.optimize(covisibility_all_double, all_trans_double, opt_landmarks, opt_poses);
 
-    // ---------------------------- offline g2o BA --------------------------------
-    PointBAusingG2O point_ba_g2o;
-    std::map<int, Eigen::Vector3d> opt_landmarks;
-    std::map<int, Eigen::Matrix4d> opt_poses;
-    std::string filename = "/home/yixin/teaser_ba/src/teaser_ba/test/result/g2o.txt";
-    point_ba_g2o.writeG2OTxt(covisibility_all_double, all_trans_double, filename);
-    point_ba_g2o.optimizeTxt(filename, opt_landmarks, opt_poses);
+    // // ---------------------------- offline g2o BA --------------------------------
+    // PointBAusingG2O point_ba_g2o;
+    // std::map<int, Eigen::Vector3d> opt_landmarks;
+    // std::map<int, Eigen::Matrix4d> opt_poses;
+    // std::string filename = "/home/yixin/teaser_ba/src/teaser_ba/test/result/g2o.txt";
+    // point_ba_g2o.writeG2OTxt(covisibility_all_double, all_trans_double, filename);
+    // point_ba_g2o.optimizeTxt(filename, opt_landmarks, opt_poses);
 
     // TODO: resulted global cloud
     // -------------------------------  save result -----------------------------------
