@@ -79,6 +79,9 @@ g2o_node_EXTERNAL_OBJECTS =
 
 g2o_node: CMakeFiles/g2o_node.dir/src/g2o_node.cc.o
 g2o_node: CMakeFiles/g2o_node.dir/build.make
+g2o_node: libteaser_head.so
+g2o_node: libceres_head.so
+g2o_node: libg2o_head.so
 g2o_node: /opt/ros/noetic/lib/libpcl_ros_filter.so
 g2o_node: /opt/ros/noetic/lib/libpcl_ros_tf.so
 g2o_node: /usr/lib/x86_64-linux-gnu/libboost_thread.so
@@ -195,6 +198,14 @@ g2o_node: /opt/ros/noetic/lib/libcpp_common.so
 g2o_node: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
 g2o_node: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
 g2o_node: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
+g2o_node: ../thirdparty/teaser/libpmc.so
+g2o_node: ../thirdparty/teaser/libteaser_registration.so
+g2o_node: ../thirdparty/teaser/libteaser_features.so
+g2o_node: /usr/lib/libceres.so.1.14.0
+g2o_node: /usr/lib/x86_64-linux-gnu/libglog.so
+g2o_node: /usr/lib/x86_64-linux-gnu/libgflags.so.2.2.2
+g2o_node: /usr/lib/gcc/x86_64-linux-gnu/9/libgomp.so
+g2o_node: /usr/lib/x86_64-linux-gnu/libpthread.so
 g2o_node: CMakeFiles/g2o_node.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable g2o_node"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/g2o_node.dir/link.txt --verbose=$(VERBOSE)

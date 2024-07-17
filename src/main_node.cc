@@ -13,6 +13,8 @@
 // initialize 
 int mode = 0; // 0 -> C, 1 -> S
 
+int reuse = 1;
+
 std::map<int, Eigen::Vector3f> truss_positionC {{0, Eigen::Vector3f{0., 0., 0.}}, {1, Eigen::Vector3f{0., 0.6, 0.}},
                                                 {2, Eigen::Vector3f{0., 1.2, 0.}}, {3, Eigen::Vector3f{0., 1.8, 0.}},
                                                 {4, Eigen::Vector3f{0., 2.4, 0.}}, {5, Eigen::Vector3f{0., 3.0, 0.}},
@@ -36,6 +38,7 @@ std::map<int, Eigen::Vector3f> truss_positionS {{0, Eigen::Vector3f{-0.4, 0., 0.
 int num_cloud = 0;
 pcl::PointCloud<pcl::PointXYZ>::Ptr truss_cloud(new pcl::PointCloud<pcl::PointXYZ>);
 std::vector<pcl::PointCloud<PointType>::Ptr> all_cloud;
+std::vector<pcl::PointCloud<PointType>::Ptr> all_cloud_original;
 std::vector<Eigen::Vector3f> all_translation;
 std::map<int, Eigen::Matrix4f> all_trans;
 std::map<int, Eigen::Matrix4d> all_trans_double;
@@ -85,9 +88,13 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& input)
 
         Eigen::Affine3f transform = Eigen::Affine3f::Identity();
         transform.translation() << truss_positionC[num_cloud];
-        pcl::transformPointCloud(*cloud, *cloud, transform);
-        *truss_cloud += *cloud;
-        all_cloud.emplace_back(cloud);
+
+        all_cloud_original.emplace_back(cloud);
+
+        pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_trans(new pcl::PointCloud<pcl::PointXYZ>);
+        pcl::transformPointCloud(*cloud, *cloud_trans, transform);
+        *truss_cloud += *cloud_trans;
+        all_cloud.emplace_back(cloud_trans);
 
         all_translation.emplace_back(truss_positionC[num_cloud]);
 
@@ -96,6 +103,7 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& input)
         trans.block(0, 3, 3, 1) = truss_positionC[num_cloud];
         all_trans.insert(std::make_pair(num_cloud, trans));
         all_trans_double.insert(std::make_pair(num_cloud, trans.cast<double>()));
+        // std::cout << trans.cast<double>() << std::endl;
 
         LOG(INFO) << "recieved cloud " << num_cloud << " with size " << cloud->points.size();
 
@@ -106,9 +114,13 @@ void cloudCallback(const sensor_msgs::PointCloud2ConstPtr& input)
         
         Eigen::Affine3f transform = Eigen::Affine3f::Identity();
         transform.translation() << truss_positionS[num_cloud];
-        pcl::transformPointCloud(*cloud, *cloud, transform);
-        *truss_cloud += *cloud;
-        all_cloud.emplace_back(cloud);
+
+        all_cloud_original.emplace_back(cloud);
+
+        pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_trans(new pcl::PointCloud<pcl::PointXYZ>);
+        pcl::transformPointCloud(*cloud, *cloud_trans, transform);
+        *truss_cloud += *cloud_trans;
+        all_cloud.emplace_back(cloud_trans);
 
         all_translation.emplace_back(truss_positionC[num_cloud]);
 
@@ -186,16 +198,16 @@ int main (int argc, char* argv[])
 
     if (mode == 0) {
     group_use2 = {{0.01}, {1.02}, {2.03}, {3.04}, {4.05}, {5.06}, {6.07}, {7.08}, {8.09}, {9.10}, {10.11}, {11.12}, {12.13}, {0.13},
-                                                {1.12}, {2.11}, {3.10}, {4.09}, {5.08},
-                                                {0.12}, {1.13}, {1.11}, {2.12}, {2.10}, {3.11}, {3.09}, {4.10}, {4.08}, {5.09}, {5.07}, {6.08}};  // two frames
+                  {1.12}, {2.11}, {3.10}, {4.09}, {5.08},
+                  {0.12}, {1.13}, {1.11}, {2.12}, {2.10}, {3.11}, {3.09}, {4.10}, {4.08}, {5.09}, {5.07}, {6.08}};  // two frames
     group_use3 = {{0.01, 1.12}, {0.01, 0.13}, {0.13, 12.13}, {1.12, 12.13},
-                                                {1.12, 1.02}, {1.02, 2.11}, {2.11, 11.12}, {11.12, 1.12},
-                                                {2.03, 2.11}, {2.03, 3.10}, {3.10, 10.11}, {10.11, 2.11},
-                                                {3.10, 3.04}, {3.04, 4.09}, {4.09, 9.10}, {9.10, 3.10},
-                                                {4.09, 4.05}, {4.05, 5.08}, {5.08, 8.09}, {8.09, 4.09},
-                                                {5.08, 5.06}, {5.06, 6.07}, {6.07, 7.08}, {7.08, 5.08}}; // three frames
+                  {1.12, 1.02}, {1.02, 2.11}, {2.11, 11.12}, {11.12, 1.12},
+                  {2.03, 2.11}, {2.03, 3.10}, {3.10, 10.11}, {2.11, 10.11},
+                  {3.10, 3.04}, {3.04, 4.09}, {4.09, 9.10}, {3.10, 9.10},
+                  {4.09, 4.05}, {4.05, 5.08}, {5.08, 8.09}, {4.09, 8.09},
+                  {5.08, 5.06}, {5.06, 6.07}, {6.07, 7.08}, {5.08, 7.08}}; // three frames
     group_use4 = {{0.01, 1.12, 12.13}, {1.02, 2.11, 11.12}, {2.03, 3.10, 10.11},
-                                                {3.04, 4.09, 9.10}, {4.05, 5.08, 8.09}, {5.06, 6.07, 7.08}}; // four frames
+                  {3.04, 4.09, 9.10}, {4.05, 5.08, 8.09}, {5.06, 6.07, 7.08}}; // four frames
     }
 
     // TRUSS S :
@@ -212,28 +224,27 @@ int main (int argc, char* argv[])
     // 14 --- 15 --- 16 --- 17 --- 18 --- 19 --- 20
 
     if (mode == 1) {
-    // TODO: get group
     group_use2 = {{0.01}, {1.02}, {2.03}, {3.04}, {4.05}, {5.06}, {6.07}, {7.08}, {8.09}, {9.10}, {10.11}, {11.12}, {12.13}, {0.13},
-                                                {1.12}, {2.11}, {3.10}, {4.09}, {5.08},
-                                                {0.12}, {1.13}, {1.11}, {2.12}, {2.10}, {3.11}, {3.09}, {4.10}, {4.08}, {5.09}, {5.07}, {6.08},
-                                                {7.20}, {7.19}, {8.20}, {8.19}, {8.18}, {9.19}, {9.18}, {9.17}, {10.18}, {10.17}, {10.16}, {11.17}, {11.16}, {11.15},
-                                                {12.16}, {12.15}, {12.14}, {13.15}, {13.14}, {14.15}, {15.16}, {16.17}, {17.18}, {18.19}, {19.20}};  // two frames
+                  {1.12}, {2.11}, {3.10}, {4.09}, {5.08},
+                  {0.12}, {1.13}, {1.11}, {2.12}, {2.10}, {3.11}, {3.09}, {4.10}, {4.08}, {5.09}, {5.07}, {6.08},
+                  {7.20}, {7.19}, {8.20}, {8.19}, {8.18}, {9.19}, {9.18}, {9.17}, {10.18}, {10.17}, {10.16}, {11.17}, {11.16}, {11.15},
+                  {12.16}, {12.15}, {12.14}, {13.15}, {13.14}, {14.15}, {15.16}, {16.17}, {17.18}, {18.19}, {19.20}};  // two frames
     group_use3 = {{0.01, 1.12}, {0.01, 0.13}, {0.13, 12.13}, {1.12, 12.13},
-                                                {1.12, 1.02}, {1.02, 2.11}, {2.11, 11.12}, {11.12, 1.12},
-                                                {2.03, 2.11}, {2.03, 3.10}, {3.10, 10.11}, {10.11, 2.11},
-                                                {3.10, 3.04}, {3.04, 4.09}, {4.09, 9.10}, {9.10, 3.10},
-                                                {4.09, 4.05}, {4.05, 5.08}, {5.08, 8.09}, {8.09, 4.09},
-                                                {5.08, 5.06}, {5.06, 6.07}, {6.07, 7.08}, {7.08, 5.08},
-                                                {12.13, 12.15}, {12.15, 14.15}, {14.15, 13.14}, {12.13, 13.14},
-                                                {11.12, 12.15}, {11.12, 11.16}, {11.16}, {15.16}, {11.16, 16.17},
-                                                {10.11, 11.16}, {10.11, 10.17}, {10.17, 16.17}, {16.17, 11.16},
-                                                {9.10, 10.17}, {9.10, 9.18}, {9.17, 17.18}, {17.18, 10.17},
-                                                {8.09, 9.18}, {8.09, 8.19}, {8.19, 18.19}, {18.19, 9.18},
-                                                {7.08, 8.19}, {7.20, 7.08}, {7.20, 19.20}, {19.20, 8.19}}; // three frames
+                  {1.12, 1.02}, {1.02, 2.11}, {2.11, 11.12}, {1.12, 11.12},
+                  {2.03, 2.11}, {2.03, 3.10}, {3.10, 10.11}, {2.11, 10.11},
+                  {3.10, 3.04}, {3.04, 4.09}, {4.09, 9.10}, {3.10, 9.10},
+                  {4.09, 4.05}, {4.05, 5.08}, {5.08, 8.09}, {4.09, 8.09},
+                  {5.08, 5.06}, {5.06, 6.07}, {6.07, 7.08}, {5.08, 7.08},
+                  {12.13, 12.15}, {12.15, 14.15}, {13.14, 14.15}, {12.13, 13.14},
+                  {11.12, 12.15}, {11.12, 11.16}, {11.16, 15.16}, {12.15, 15.16},
+                  {10.11, 11.16}, {10.11, 10.17}, {10.17, 16.17}, {11.16, 16.17},
+                  {9.10, 10.17}, {9.10, 9.18}, {9.17, 17.18}, {10.17, 17.18},
+                  {8.09, 9.18}, {8.09, 8.19}, {8.19, 18.19}, {9.18, 18.19},
+                  {7.08, 8.19}, {7.20, 7.08}, {7.20, 19.20}, {8.19, 19.20}}; // three frames
     group_use4 = {{0.01, 1.12, 12.13}, {1.02, 2.11, 11.12}, {2.03, 3.10, 10.11},
-                                                {3.04, 4.09, 9.10}, {4.05, 5.08, 8.09}, {5.06, 6.07, 7.08},
-                                                {12.13, 13.14, 14.15}, {11.12, 12.15, 15.16}, {10.11, 11.16, 16.17},
-                                                {9.10, 10.17, 17.18}, {8.09, 9.18, 18.19}, {7.08, 8.19, 19.20}}; // four frames
+                  {3.04, 4.09, 9.10}, {4.05, 5.08, 8.09}, {5.06, 6.07, 7.08},
+                  {12.13, 13.14, 14.15}, {11.12, 12.15, 15.16}, {10.11, 11.16, 16.17},
+                  {9.10, 10.17, 17.18}, {8.09, 9.18, 18.19}, {7.08, 8.19, 19.20}}; // four frames
     }
 
 
@@ -282,11 +293,14 @@ int main (int argc, char* argv[])
                 for (auto& ass : association_use3_tmp) {
                     // std::cout << ass.back().first << " " << front << " " << ass.back().second << " " << cor.begin()->first << std::endl;
                     if ((ass.back().first == front && ass.back().second == cor.begin()->first) ||
-                        (ass.front().first == front && ass.front().second == cor.begin()->first) ||
-                        (ass.front().first == end && ass.front().second == cor.begin()->second) ||
-                        (ass.back().first == end && ass.back().second == cor.begin()->second)) {
+                        (ass.front().first == front && ass.front().second == cor.begin()->first)) {
                         ass.emplace_back(std::make_pair(end, cor.begin()->second));
-                        // std::cout << "add" << std::endl;
+                        find_flag = true;
+                        continue;
+                    }
+                    else if ((ass.front().first == end && ass.front().second == cor.begin()->second) ||
+                        (ass.back().first == end && ass.back().second == cor.begin()->second)) {
+                        ass.emplace_back(std::make_pair(front, cor.begin()->first));
                         find_flag = true;
                         continue;
                     }
@@ -351,7 +365,7 @@ int main (int argc, char* argv[])
 
     LOG(INFO) << "[data association time cost] " << (end_data - start_data).toSec();
 
-if (0) {
+if (remove) {
     // TODO: data refinement
     // ----------------------------- refine co-visibility with two frames --------------------------------
     std::vector<std::vector<std::pair<int, int>>> association_use2_new;
@@ -403,11 +417,15 @@ if (0) {
         std::map<int, Eigen::Vector3f> co_tmp;
         std::map<int, Eigen::Vector3d> co_tmp_double;
         for (auto& co : association_use2[jj]) {
+            Eigen::Matrix4f cur_pose(all_trans[co.first]);
+            Eigen::Matrix3f cur_rotation = cur_pose.block(0, 0, 3, 3);
+            Eigen::Vector3f cur_translation = cur_pose.block(0, 3, 3, 1);
             // std::cout << co.first << " " << co.second << std::endl;
-            Eigen::Vector3f obs;
-            obs << all_features[co.first].first[co.second].x, 
-                   all_features[co.first].first[co.second].y,
-                   all_features[co.first].first[co.second].z;
+            Eigen::Vector3f obs_;
+            obs_ << all_features[co.first].first[co.second].x, 
+                    all_features[co.first].first[co.second].y,
+                    all_features[co.first].first[co.second].z;
+            Eigen::Vector3f obs = cur_rotation.inverse() * (obs_ - cur_translation);
             co_tmp.insert(std::make_pair(co.first, obs));
             co_tmp_double.insert(std::make_pair(co.first, obs.cast<double>()));
             // std::cout << obs << std::endl;
@@ -435,11 +453,15 @@ if (0) {
         std::map<int, Eigen::Vector3f> co_tmp;
         std::map<int, Eigen::Vector3d> co_tmp_double;
         for (auto& co : association_use3[jj]) {
+            Eigen::Matrix4f cur_pose(all_trans[co.first]);
+            Eigen::Matrix3f cur_rotation = cur_pose.block(0, 0, 3, 3);
+            Eigen::Vector3f cur_translation = cur_pose.block(0, 3, 3, 1);
             // std::cout << co.first << " " << co.second << std::endl;
-            Eigen::Vector3f obs;
-            obs << all_features[co.first].first[co.second].x, 
+            Eigen::Vector3f obs_;
+            obs_ << all_features[co.first].first[co.second].x, 
                    all_features[co.first].first[co.second].y,
                    all_features[co.first].first[co.second].z;
+            Eigen::Vector3f obs = cur_rotation.inverse() * (obs_ - cur_translation);
             co_tmp.insert(std::make_pair(co.first, obs));
             co_tmp_double.insert(std::make_pair(co.first, obs.cast<double>()));
             pcl::PointXYZ pt;
@@ -466,10 +488,14 @@ if (0) {
         std::map<int, Eigen::Vector3f> co_tmp;
         std::map<int, Eigen::Vector3d> co_tmp_double;
         for (auto& co : association_use4[jj]) {
-            Eigen::Vector3f obs;
-            obs << all_features[co.first].first[co.second].x, 
+            Eigen::Matrix4f cur_pose(all_trans[co.first]);
+            Eigen::Matrix3f cur_rotation = cur_pose.block(0, 0, 3, 3);
+            Eigen::Vector3f cur_translation = cur_pose.block(0, 3, 3, 1);
+            Eigen::Vector3f obs_;
+            obs_ << all_features[co.first].first[co.second].x, 
                    all_features[co.first].first[co.second].y,
                    all_features[co.first].first[co.second].z;
+            Eigen::Vector3f obs = cur_rotation.inverse() * (obs_ - cur_translation);
             co_tmp.insert(std::make_pair(co.first, obs));
             co_tmp_double.insert(std::make_pair(co.first, obs.cast<double>()));
             pcl::PointXYZ pt;
@@ -488,29 +514,50 @@ if (0) {
     pcl::io::savePCDFile("/home/yixin/teaser_ba/src/teaser_ba/test/result/co4obs.pcd", *coobs_use4);
     LOG(INFO) << "[covisibility map use four frames] size: " << covisibility_use4.size();
 
-    // // TODO: point BA
+    // TODO: point BA
     // // ---------------------------- ceres BA --------------------------------
     // pointBA point_ba;
     // std::map<int, Eigen::Vector3d> opt_landmarks;
     // std::map<int, Eigen::Matrix4d> opt_poses;
     // point_ba.optimize(covisibility_all, all_trans, opt_landmarks, opt_poses);
 
-    // ---------------------------- g2o BA --------------------------------
+    // // ---------------------------- online g2o BA --------------------------------
+    // PointBAusingG2O point_ba_g2o;
+    // std::map<int, Eigen::Vector3d> opt_landmarks;
+    // std::map<int, Eigen::Matrix4d> opt_poses;
+    // point_ba_g2o.optimize(covisibility_all_double, all_trans_double, opt_landmarks, opt_poses);
+
+    // ---------------------------- offline g2o BA --------------------------------
     PointBAusingG2O point_ba_g2o;
     std::map<int, Eigen::Vector3d> opt_landmarks;
     std::map<int, Eigen::Matrix4d> opt_poses;
-    point_ba_g2o.optimize(covisibility_all_double, all_trans_double, opt_landmarks, opt_poses);
+    std::string filename = "/home/yixin/teaser_ba/src/teaser_ba/test/result/g2o.txt";
+    point_ba_g2o.writeG2OTxt(covisibility_all_double, all_trans_double, filename);
+    point_ba_g2o.optimizeTxt(filename, opt_landmarks, opt_poses);
 
     // TODO: resulted global cloud
     // -------------------------------  save result -----------------------------------
     pcl::PointCloud<pcl::PointXYZ>::Ptr global_cloud(new pcl::PointCloud<pcl::PointXYZ>());
     for (int i = 0; i < opt_poses.size(); i++) {
         pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
-        pcl::transformPointCloud(*all_cloud[i], *cloud, opt_poses[i]);
+        pcl::transformPointCloud(*all_cloud_original[i], *cloud, opt_poses[i]);
         *global_cloud += *cloud;
         LOG(INFO) << "[optimized poses] " << i << ":  \n" << opt_poses[i];
     }
     pcl::io::savePCDFile("/home/yixin/teaser_ba/src/teaser_ba/test/result/global.pcd", *global_cloud);
+
+    pcl::PointCloud<pcl::PointXYZ>::Ptr opt_landmark(new pcl::PointCloud<pcl::PointXYZ>());
+    for (auto& pt : opt_landmarks) {
+        pcl::PointXYZ ppt;
+        ppt.x = pt.second(0);
+        ppt.y = pt.second(1);
+        ppt.z = pt.second(2);
+        opt_landmark->points.emplace_back(ppt);
+    }
+    opt_landmark->height = 1;
+    opt_landmark->width = opt_landmark->points.size();
+    LOG(INFO) << "[optimized landmarks] size: " << opt_landmark->points.size();
+    pcl::io::savePCDFile("/home/yixin/teaser_ba/src/teaser_ba/test/result/opt_landmarks.pcd", *opt_landmark);
 
     ros::Time end = ros::Time::now();
 

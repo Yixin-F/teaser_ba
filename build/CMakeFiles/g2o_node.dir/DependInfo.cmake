@@ -10,6 +10,7 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_CXX
+  "GFLAGS_IS_A_DLL=0"
   "ROSCONSOLE_BACKEND_LOG4CXX"
   "ROS_BUILD_SHARED_LIBS=1"
   "ROS_PACKAGE_NAME=\"teaser_ba\""
@@ -28,6 +29,9 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/teaser_head.dir/DependInfo.cmake"
+  "/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/ceres_head.dir/DependInfo.cmake"
+  "/home/yixin/teaser_ba/src/teaser_ba/build/CMakeFiles/g2o_head.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.
