@@ -3,8 +3,8 @@
 
 #include "Utility.h"
 
-#include "/home/yixin/teaser_ba/build/teaser_ba/teaser-prefix/src/teaser/teaser/include/teaser/matcher.h"
-#include "/home/yixin/teaser_ba/build/teaser_ba/teaser-prefix/src/teaser/teaser/include/teaser/registration.h"
+#include "../../thirdparty/teaser/matcher.h"
+#include "../../thirdparty/teaser/registration.h"
 
 // common
 #define NORMAL_ESTIMATION_RADIUS (0.1)

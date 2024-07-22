@@ -148,6 +148,7 @@ int main (int argc, char* argv[])
     ros::NodeHandle nh;
 
     ros::Subscriber sub = nh.subscribe("/point_cloud_topic", 10, cloudCallback);
+    ros::Publisher pub = nh.advertise<sensor_msgs::PointCloud2>("/reconstruction_topic", 1);
 
     fpfh_teaser my_teaser;
     LOG(INFO) << "Hi, I'm TEASER-BA ...";
@@ -562,6 +563,22 @@ if (reuse) {
     ros::Time end = ros::Time::now();
 
     LOG(INFO) << "[whole time cost] " << (end - start).toSec();
+
+    // TODO: publish cloud
+    if (global_cloud->points.size() != 0) {
+        ros::Rate loop_rate(1);
+        while (ros::ok()) {
+            sensor_msgs::PointCloud2 output;
+            pcl::toROSMsg(*global_cloud, output);
+            output.header.frame_id = "map";
+            output.header.stamp = ros::Time::now();
+
+            pub.publish(output);
+
+            ros::spinOnce();
+            loop_rate.sleep();
+        }
+    }
 
     return 0;
 }

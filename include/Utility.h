@@ -20,6 +20,7 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/filters/passthrough.h>
 #include <pcl/filters/filter.h>
+#include <pcl_ros/point_cloud.h>
 
 #include <glog/logging.h>
 
